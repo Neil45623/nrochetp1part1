@@ -1,18 +1,24 @@
-const express = require("express");
+const http = required('http');
 
-const app = express();
 
-app.get('/ping', (_demande, reponse) => {
-    reponse.json('pong');
-});
+const found = (port) => {
+    http.get('http://localhost/:$%7Bport%7D/ping', (res) =>{
 
-const port = getRandomPort();
-console.log(port);
+        res.setEncoding{'utf8'};
+        res.on('data',(chunk) => {
+            console.log(chunk);
+            console.log('Result: find port ${port} is open');
+        });
 
-app.listen(port);
 
-function getRandomPort(min, max) {
-    min = Math.ceil(3000);
-    max = Math.floor(4000);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    }).on('error', (e) =>{
+        console.log('Error: ${e.code} at ${e.address}:${e.port}');
+    });
+
 }
+
+setTimeout(() =>{
+    for (let port = 300; port < 400; port++) {
+    found(port);
+    }
+},3000);
